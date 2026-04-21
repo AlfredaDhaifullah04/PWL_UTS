@@ -8,13 +8,24 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    public function getNameAttribute(): string
+    {
+        return $this->nama ?? $this->username ?? 'User';
+    }
+
     protected $table = 'm_user';
     protected $primaryKey = 'user_id';
-    protected $fillable = ['level_id', 'username', 'nama', 'password', 'email'];
-
+    // protected $fillable = ['level_id', 'username', 'name', 'password', 'email'];
+    protected $fillable = [
+        'username',
+        'email',
+        'nama',
+        'password',
+        'level_id',
+    ];
     public function level()
     {
-        return $this->belongsTo(m_level::class, 'level_id', 'level_id');
+        return $this->belongsTo(Level::class, 'level_id', 'level_id');
     }
 
     public function stoks()
