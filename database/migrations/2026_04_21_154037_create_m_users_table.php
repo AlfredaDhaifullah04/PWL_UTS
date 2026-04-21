@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('m_users', function (Blueprint $table) {
-            $table->id();
+        Schema::create('m_user', function (Blueprint $table) {
+            $table->id('user_id');
+            $table->foreignId('level_id')->constrained('m_level', 'level_id');
+            $table->string('username', 20)->unique();
+            $table->string('nama', 100);
+            $table->string('password', 255);
+            $table->string('email', 100)->unique()->nullable();
             $table->timestamps();
         });
     }
